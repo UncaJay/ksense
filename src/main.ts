@@ -1,10 +1,8 @@
 import { request as httpsRequest, RequestOptions } from 'https';
 import { PatientRecord, PatientsApiResponse, Resp } from './interfaces';
-import { verify } from 'crypto';
-import { sys } from 'typescript';
 
 async function get(url: string, timeout = 10000): Promise<{ status: number; body: string }> {
-    console.debug('GET ', url);
+    console.log('GET ', url);
     return new Promise((resolve, reject) => {
         let parsed: URL;
         try {
@@ -69,6 +67,11 @@ async function retryGet(url: string, retries: number, delayMs: number, timeout?:
     throw new Error('Unreachable code');
 }
 
+/**
+ * Gets all the patient data from the API, handling pagination and retries
+ * @param limit 
+ * @returns 
+ */
 async function getData(limit?: number): Promise<Array<PatientRecord>> {
     let mainResp: PatientsApiResponse;
     let ret: Array<PatientRecord> = [];
@@ -99,7 +102,12 @@ async function getData(limit?: number): Promise<Array<PatientRecord>> {
     return ret;
 }
 
-function verifyRecord(rec: PatientRecord) {
+/**
+ * Checks if the record has valid age, temperature, and blood pressure values
+ * @param rec 
+ * @returns true if valid, false otherwise
+ */
+function verifyRecord(rec: PatientRecord): boolean {
     if (!rec.age || (typeof rec.age !== 'number' || isNaN(rec.age))) {
         return false;
     }
@@ -173,6 +181,7 @@ async function main() {
             ret.high_risk_patients.push(rec.patient_id);
         }
 
+        // for debugging purposes
         rec['risk_score'] = totalPoints;
     }
     return ret;
