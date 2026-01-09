@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./dist",
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "target": "es2024",
+    "module": "commonjs"
+  },
+  "references": [],
+  "include": ["src/**/*","package.json"],
+  "exclude": [
+    "dist",
+    "build",
+    "coverage",
+    "test",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}
